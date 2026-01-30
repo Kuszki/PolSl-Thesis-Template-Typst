@@ -76,7 +76,7 @@ f(x, y) = cases(
 )
 $ <eq:rownanie_4>
 
-Do równań należy odwoływać się stosując ich nazwę, identycznie jak w przypadku tabel i rysunków. Przykładowo odnieść się można do równania~@eq:rownanie_1, równania~@eq:rownanie_3 oraz równania~@eq:rownanie_4. Niestety w obecnej wersji `Typst` nie ma sprawdzonej i działającej metody do automatycznego formatowania cytowanego numeru równania w nawiasach. Stosowanie oficjalnego rozwiązania nie jest kompatybilne z biblioteką `equate`, która pozwala tworzyć, numerować i linkować kolejno występujące po sobie równania. Należy dodatkowo pamiętać, że równania w systemie składu `Typst` nie są kompatybilne z tymi, pisanymi w systemie składu `LaTeX`. Stanowi to poważny problem podczas migracji dokumentu.
+Do równań należy odwoływać się stosując ich nazwę, identycznie jak w przypadku tabel i rysunków. Przykładowo odnieść się można do równania~@eq:rownanie_1, równania~@eq:rownanie_3 oraz równania~@eq:rownanie_4. Niestety w obecnej wersji `Typst` nie ma sprawdzonej i działającej metody do automatycznego formatowania cytowanego numeru równania w nawiasach. Stosowanie oficjalnego rozwiązania nie jest kompatybilne z biblioteką `equate`, która pozwala tworzyć, numerować i linkować kolejno występujące po sobie równania. Należy dodatkowo pamiętać, że równania w systemie składu `Typst` nie są kompatybilne z tymi, pisanymi w systemie składu `LaTeX`. Stanowi to problem podczas migracji dokumentu.
 
 Jeżeli podczas pisania tekstu istnieje konieczność wstawiania symbolu lub fragmentu równania, to należy taki symbol wstawić pomiędzy znaki dolara, gdzie np. ```typst $x^2 cos(alpha)$``` zamieni się na $x^2 cos(alpha)$. Jeżeli natomiast w tekście występują wielkości wraz z ich wartościami i jednostkami, zaleca się stosowanie biblioteki `unify`. Wtedy przykładowo stosować można rozwiązania gdzie:
  - ```typst $U = qty("12.3", "micro V")$``` zamieni się na $U = qty("12.3", "micro V")$,
@@ -107,15 +107,12 @@ Fragmenty kodu źródłowego mogą być wstawiane w tekście w ten sam sposób, 
   caption: [Przykładowy kod `C++`],
 )[
   ```cpp
-  #include "mainwindow.hpp"
-  #include <QApplication>
-
+  #include <stdio>
+  
   int main(int argc, char *argv[])
   {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+    std::cout << "Wincy żółtego!" << std::endl;
+    return 2137;
   }
   ```
 ]
@@ -130,10 +127,12 @@ Fragmenty kodu źródłowego mogą być wstawiane w tekście w ten sam sposób, 
 
 == Uwagi techniczne
 
-Szablon wykorzystuje system składu `Typst` oraz bibliografię w formacie `BibLaTeX`, stąd pliki źródłowe powinny być kodowane w `UTF-8`. Dzielenie wyrazów jest domyślnie wyłączone, natomiast bękarty, wdowy, sieroty i szewcy są automatycznie eliminowane. Niestety, stosowany system składu wciąż jest w fazie rozwoju, podobnie jak zastosowane w niniejszym szablonie biblioteki. Oznacza to, że mogą wystąpić problemy z niektórymi funkcjami oraz umiędzynaradawianiem dokumentu. Obecnie system składu `LaTeX` zapewni znacznie lepszą jakość składu, natomiast nowatorski `Typst` oferuje szybszą kompilację, mniejszy stopień skomplikowania i niższy próg wejścia.
+Szablon wykorzystuje system składu `Typst` oraz bibliografię w formacie `BibLaTeX`, stąd pliki źródłowe powinny być kodowane w `UTF-8`. Dzielenie wyrazów jest domyślnie wyłączone, natomiast bękarty, wdowy, sieroty i szewcy są automatycznie eliminowane. Niestety, stosowany system składu wciąż jest w fazie rozwoju, podobnie jak zastosowane w niniejszym szablonie biblioteki. Oznacza to, że mogą wystąpić problemy z niektórymi funkcjami oraz umiędzynaradawianiem dokumentu.
 
-Standardowo odstęp pomiędzy akapitami wynosi #qty("12", "pt") i nie jest on dodatkowo korygowany, jak ma to miejsce w `LaTeX`. Wcięcie pierwszego wiersza akapitu wynosi #qty("32", "pt"), natomiast w chwili sporządzania szablonu nie jest ono prawidłowo obsługiwane przez kompilator. W obecnej wersji szablonu nie dodano nagłówka strony. Można to osiągnąć stosując bibliotekę `hydra`, natomiast w chwili obecnej nie zapewnia ona możliwości odpowiedniej obsługi nagłówka, podobnej do tej zapewnianej przez bibliotekę `fancyhdr` z `LaTeX`. Podczas cytowania literatury oraz odnoszenia się do rysunków, tabel i równań sugeruje się stosować nierozdzielające spacje (znak tyldy).
+Standardowo odstęp pomiędzy akapitami wynosi #qty("12", "pt") i nie jest on dodatkowo korygowany, jak ma to miejsce w `LaTeX`. System składu `Typst` nie zakłada takiej możliwości w przyszłości, stąd ogólna jakość składu może być nieco gorsza, niż w przypadku stosowania `LaTeX`. Wcięcie pierwszego wiersza akapitu wynosi #qty("32", "pt"), natomiast w chwili sporządzania szablonu nie jest ono prawidłowo obsługiwane przez kompilator. Podczas cytowania literatury oraz odnoszenia się do rysunków, tabel i równań sugeruje się stosować nierozdzielające spacje (znak tyldy).
 
 Stosowany w `Typst` format pisania równań jest formatem niezgodnym z `LaTeX`. Warto zauważyć, że między z uwagi na krótki czas życia, dostępne narzędzia, między innymi `ChatGPT`, mogą mieć problemy z poprawnym tworzeniem równań. Istnieją specjalne narzędzia, które umożliwiają wstawianie równań `LaTeX` w `Typst`.
 
-Zwyczajowo w tego typu pracach wszystkie równania, rysunki, tabele, listingi itp. numeruje się względem rozdziału (tj. dodaje się numeracje `rozdział.obiekt`). Z uwagi na fakt, że prace magisterskie i projekty inżynierskie cechują się objętością nieprzekraczającą około 50 stron, w proponowanym szablonie nie stosuje się takiego numerowania. Można je jednak aktywować poprzez zamianę ustawień w pliku `thesis.typ`. Aby uzyskać minimalną objętość pracy szablon nie zakłada dodawania pustych stron w celu osiągnięcia rozpoczęcia kolejnych rozdziałów na prawej stronie.
+Zwyczajowo w tego typu pracach wszystkie równania, rysunki, tabele, listingi itp. numeruje się względem rozdziału (tj. dodaje się numeracje `rozdział.obiekt`). Z uwagi na fakt, że prace magisterskie i projekty inżynierskie cechują się objętością nieprzekraczającą około 50 stron, w proponowanym szablonie nie stosuje się takiego numerowania -- można jednak je wprowadzić.
+
+Stosując parametr szablonu `print: true` wygenerowany dokument będzie przeznaczony do wydruku. Spowoduje to dodanie dodatkowych pustych stron, w ten sposób aby spis treści oraz metryka pracy znajdowały się na prawej stronie. W trybie `print` wewnętrzny margines zostanie również przesunięty o #qty("0.5", "cm"), co umożliwi zbindowanie pracy. Należy zauważyć, że numeracja stron rozdziałów pracy nie zmieni się. Aby zminimalizować objętość pracy, szablon nie wprowadza funkcji `openright` i nie wymusza rozpoczęcia rozdziałów na nowej stronie. Nie zaleca się stosowania tego rozwiązania, ponieważ poza nadmiarem papieru, modyfikuje ono numeracje stron dokumentu. Istnieje jednak możliwość dopasowania szablonu do stosowania tej opcji.

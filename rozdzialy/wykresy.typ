@@ -20,16 +20,9 @@ Przedstawiony skrypt tworzy w pierwszej linii nowy wykres, przy czym gdy skrypt 
 ]
 <lst:octave>
 
-Po wygenerowaniu danych wykres jest sporządzany oraz formatowane są jego elementy. W opisach stosować można większość podstawowych funkcji `LaTeX` do formatowania tekstu. Można również zastosować wartość `latex` dla opcji `interpreter` formatując kolejne elementy wykresu. Szczegóły opisuje #link("https://docs.octave.org/latest")[dokumentacja] programu `GNU Octave`. Znaki specjalne wstawiać można bezpośrednio w edytorze tekstu, stosując kodowanie `UTF-8`. Można także wstawiać je stosując ich nazwy, identycznie jak podczas edycji równań. Wygenerowany w omawiany sposób wykres jest spójny z resztą dokumentu i wygląda profesjonalnie.
+Po wygenerowaniu danych wykres jest sporządzany oraz formatowane są jego elementy. W opisach stosować można większość podstawowych funkcji `LaTeX` do formatowania tekstu. Można również zastosować wartość `latex` dla opcji `interpreter` formatując kolejne elementy wykresu. Szczegóły opisuje #link("https://docs.octave.org/latest")[dokumentacja] programu `GNU Octave`. Znaki specjalne wstawiać można bezpośrednio w edytorze tekstu, stosując kodowanie `UTF-8`. Można także wstawiać je stosując ich nazwy, identycznie jak podczas edycji równań. Wygenerowany w omawiany sposób wykres jest spójny z resztą dokumentu i wygląda profesjonalnie. Niestety w przeciwieństwie do systemu składu `LaTeX`, stosując `Typst` nie ma możliwości eksportu wykresów do formatu `tikz`.
 
 Wykresy można generować również w programie `gnuplot`, gdzie przykładowy skrypt przedstawiono w listingu~@lst:gnuplot. Stosować w tym celu można terminal `svg`. Niestety system składu `Typst` nie wspiera rysunków w formacie `tikz`, stąd stosowanie programu `gnuplot` jest ograniczone. Alternatywą dla wskazanego formatu jest `cetz`, natomiast nie oferuje on tylu możliwości i wciąż jest w wersji rozwojowej. Stosowanie terminala `svg` w `gnuplot` pozwala osiągnąć większość formatów wewnątrz wykresu, natomiast nie jest ono wygodne z uwagi na konieczność ręcznego wprowadzania formatów.
-
-#figure(
-  caption: [Przykładowy rysunek wygenerowany w programie `gnuplot`]
-)[
-  #image("../obrazki/gnuplot_demo.svg")
-]
-<fig:gnuplot>
 
 #figure(
   caption: [Przykładowy skrypt programu `gnuplot` generujący rysunek~@fig:gnuplot]
@@ -38,6 +31,13 @@ Wykresy można generować również w programie `gnuplot`, gdzie przykładowy sk
 ]
 <lst:gnuplot>
 
+#figure(
+  caption: [Przykładowy rysunek wygenerowany w programie `gnuplot`]
+)[
+  #image("../obrazki/gnuplot_demo.svg")
+]
+<fig:gnuplot>
+
 Ostatnim proponowanym rozwiązaniem jest ręczne generowanie wykresów bezpośrednio w treści dokumentu, stosując bibliotekę `cetz` lub bibliotekę `lilaq`. Takie rozwiązanie zapewnia jakość porównywalną do stosowania programu `gnuplot` i terminala `tikz`, przy czym wymaga wprowadzenia treści wykresu ręcznie. Przykład wykresu, który generowany jest na podstawie listingu~@lst:cetz przedstawia rysunek~@fig:cetz, przy czym osiągnięty efekt jest podobny do rysunku~@fig:gnuplot.
 
 #figure(
@@ -45,20 +45,20 @@ Ostatnim proponowanym rozwiązaniem jest ręczne generowanie wykresów bezpośre
 )[
   #canvas({
     plot.plot(
-      size: (14, 6),
-      x-tick-step: calc.pi/4,
-      x-format: plot.formats.multiple-of,
-      y-tick-step: 0.5, 
-      y-min: -1.5, 
-      y-max: 1.5,
-      legend: "inner-north-east",
-      x-grid: true,
-      y-grid: true,
+      size: (14, 7),                      // rozmiar wykresu (cm)
+      x-tick-step: calc.pi/4,             // krok osi X
+      x-format: plot.formats.multiple-of, // format osi X
+      y-tick-step: 0.5,                   // krok osi Y
+      y-min: -1.5,                        // zakres
+      y-max: 1.5,                         // osi Y
+      legend: "inner-north-east",         // pozycja legendy
+      x-grid: true,                       // siatka osi X
+      y-grid: true,                       // siatka osi Y
     {
-      plot.add(
-        calc.sin, 
-        domain: (-1.1 * calc.pi, +1.1 * calc.pi), 
-        label: $sin(x)$,
+      plot.add(                                   // dodaj wykres:
+        domain: (-1.1 * calc.pi, +1.1 * calc.pi), //   dziedzina
+        label: $sin(x)$,                          //   etykieta
+        calc.sin                                  //   funkcja
       )
     })
   })
@@ -69,29 +69,33 @@ Ostatnim proponowanym rozwiązaniem jest ręczne generowanie wykresów bezpośre
   caption: [Przykładowy skrypt programu `gnuplot` generujący rysunek~@fig:cetz],
 )[
   ```typst
-  #canvas({
-    plot.plot(
-      size: (14, 6),
-      x-tick-step: calc.pi/4,
-      x-format: plot.formats.multiple-of,
-      y-tick-step: 0.5, 
-      y-min: -1.5, 
-      y-max: 1.5,
-      legend: "inner-north-east",
-      x-grid: true,
-      y-grid: true,
-    {
-      plot.add(
-        calc.sin, 
-        domain: (-1.1 * calc.pi, +1.1 * calc.pi), 
-        label: $sin(x)$,
-      )
+  #figure(
+    caption: [Przykładowy rysunek wygenerowany w bibliotece `cetz`]
+  )[
+    #canvas({
+      plot.plot(
+        size: (14, 7),                      // rozmiar wykresu (cm)
+        x-tick-step: calc.pi/4,             // krok osi X
+        x-format: plot.formats.multiple-of, // format osi X
+        y-tick-step: 0.5,                   // krok osi Y
+        y-min: -1.5,                        // zakres
+        y-max: 1.5,                         // osi Y
+        legend: "inner-north-east",         // pozycja legendy
+        x-grid: true,                       // siatka osi X
+        y-grid: true,                       // siatka osi Y
+      {
+        plot.add(                                   // dodaj wykres:
+          domain: (-1.1 * calc.pi, +1.1 * calc.pi), //   dziedzina
+          label: $sin(x)$,                          //   etykieta
+          calc.sin                                  //   funkcja
+        )
+      })
     })
-  })
+  ] <fig:cetz>
   ```
 ]
 <lst:cetz>
 
-Generowanie wykresów w programie `GNU Octave` jest najprostszym z przedstawionych rozwiązań, gdzie dodatkowo program ten pozwala na przeprowadzanie skomplikowanych symulacji i obliczeń. Program `gnuplot` umożliwia natomiast generowanie wykresów dużo lepszej jakości, gdzie jednocześnie możliwe jest wykonywanie różnych operacji i obliczeń na danych, które mogą być wczytywane z plików. Stosowanie biblioteki `cetz` lub `lilaq` zapewnia doskonałą jakość wykresów i grafów, natomiast wymaga wprowadzania ich bezpośrednio w kodzie `Typst` lub wczytywania treści skryptu z pliku. Dobór stosowanego rozwiązania powinien być zatem rozważony pod kątem łatwości użycia danego narzędzia oraz zapewnianych przez niego możliwości. Istotne jest jednak, aby wszystkie wykresy w pracy były jednolite -- najlepiej zatem stosować konsekwentnie jedno z rozwiązań.
+Generowanie wykresów w programie `GNU Octave` jest najprostszym z przedstawionych rozwiązań, gdzie dodatkowo program ten pozwala na przeprowadzanie skomplikowanych symulacji i obliczeń. Program `gnuplot` również umożliwia generowanie wykresów dobrej jakości, gdzie jednocześnie możliwe jest wykonywanie różnych operacji i obliczeń na danych, które mogą być wczytywane z plików. Stosowanie biblioteki `cetz` lub `lilaq` zapewnia doskonałą jakość wykresów i grafów, natomiast wymaga wprowadzania ich bezpośrednio w kodzie `Typst` lub wczytywania treści skryptu z pliku.
 
-W porównaniu do systemu składu `LaTeX`, największe ograniczenia `Typst` to brak obsługi grafiki w formacie `tikz`. Bardzo dużo narzędzi umożliwia stosowanie tego formatu, a ten z kolei idealnie integruje się z dokumentami `LaTeX`. Biblioteka `cetz` ma na celu zachowanie funkcjonalności biblioteki `pgfplots`, natomiast wciąż znajduje się w fazie rozwoju. Co więcej, biblioteki te nie są kompatybilne. Zaletą `Typst` jest natomiast natywna i pełna obsługa formatu `SVG`, który nie jest bezpośrednio obsługiwany przez `LaTeX` i wymaga konwersji do formatu `PDF`.
+Dobór stosowanego rozwiązania powinien być zatem rozważony pod kątem łatwości użycia danego narzędzia oraz zapewnianych przez niego możliwości. Istotne jest jednak, aby wszystkie wykresy w pracy były jednolite -- najlepiej zatem stosować konsekwentnie jedno z rozwiązań.

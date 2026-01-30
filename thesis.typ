@@ -15,6 +15,7 @@
   
   bibfile: "dodatki/bibliografia.bib",
   bibstyle: "ieee",
+  print: true,
 
   font-sans: "Latin Modern Sans",
   font-roman: "Latin Modern Roman",
@@ -45,6 +46,33 @@
   let font-huge = (20/12)*font-size
   let font-large = (17/12)*font-size
   
+  let chapter-start = state("chapter-start", none)
+  let chapter-title = state("chapter-title", "")
+  
+  let header() = {
+    let p = counter(page).get()
+    let h = none;
+    
+    if chapter-start.get() != p {
+      if calc.odd(p.at(0)) {
+        h = align(left)[Rozdział~#chapter-title.get()]
+      } else {
+        h = align(right)[#topic-pl]
+      }
+    }
+
+    if h != none {
+      block(h,
+        inset: (bottom: 6pt),
+        stroke: (bottom: 0.5pt),
+        width: 100%,
+      )
+    }
+  }
+
+  let margin = if not print { (rest: 2.5cm) }
+  else { (inside: 3cm, outside: 2cm, rest: 2.5cm) }
+  
   show heading.where(level: 1): set text(size: 25pt, weight: "bold")
   show heading.where(level: 1): set block(above: 96pt, below: 64pt)
   show heading.where(level: 1): it => pagebreak(weak: true) + v(96pt) + it 
@@ -59,7 +87,7 @@
   show figure.where(kind: image): set figure.caption(position: bottom)
 
   show math.equation: set text(font: font-math) 
-  show raw: set text(font: font-mono)
+  show raw: set text(font: font-mono, size: font-size)
   
   show figure.caption: set align(left)
   show figure.caption: it => block(width: 100%)[
@@ -68,6 +96,15 @@
 
   show: equate.with(breakable: auto, sub-numbering: false)
   show: codly-init.with()
+
+  show heading.where(level: 1): it => context {
+    let n = counter(heading).display()
+    let p = counter(page).get()
+    
+    chapter-title.update(n + [~] + it.body)
+    chapter-start.update(p)
+    it
+  }
 
   set math.equation(numbering: "(1)")
   
@@ -87,7 +124,9 @@
   
   set page(
     paper: "a4",
-    margin: 2.5cm,
+    margin: margin,
+    numbering: none,
+    header: context header(),
   )
 
   set par(
@@ -109,7 +148,7 @@
 
   set table(
     inset: 6pt,
-    stroke: 0.75pt,
+    stroke: 0.666pt,
   )
 
   set bibliography(
@@ -131,7 +170,11 @@
 
   {
     set par(first-line-indent: 0pt)
-    set page(numbering: none)
+    set page(
+      numbering: "a", 
+      footer: none,
+      header: none,
+    )
     
     page({
       set text(font: font-sans)
@@ -140,9 +183,9 @@
       
       image("obrazki/polsl_logo.png", width: 5.25cm)
       text(weight: "bold", size: font-huge, upper[#type])
-      v(20pt)
+      v(25pt)
       text(weight: "bold", size: font-large, [#topic-pl])
-      v(10pt)
+      v(15pt)
       for a in authors {
         text(weight: "bold", size: font-large, [#a.name])
         v(1pt)
@@ -168,6 +211,8 @@
       set align(bottom + center)
       text(weight: "bold", size: font-large, upper[#place, #year])
     })
+
+    if print { pagebreak(to: "odd") }
     
     page({
       text(lang: "pl", {
@@ -183,18 +228,24 @@
       })
     })
 
+    if print { pagebreak(to: "odd") }
+
     outline()
+
+    if print { pagebreak(to: "odd") }
   }
+
+  counter(page).update(1)
   
   {
-    pagebreak(weak: false)
     set page(numbering: "1")
-    counter(page).update(1)
     
     [       #body        ]
 
+    set page(header: none)
     set par(spacing: font-large)
-    bibliography(bibfile)
+    
+    bibliography(bibfile, style: bibstyle)
   }
 
 }

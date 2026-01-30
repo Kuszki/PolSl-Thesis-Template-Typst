@@ -1,30 +1,35 @@
-#import "thesis.typ"                             // szablon ze stylem
+#import "thesis.typ"                             // szablon pracy
 
+// Konfiguracja szablonu:
 #show: thesis.setup.with(
-  topic-pl: "Szablon pracy dyplomowej",          // tytuł pracy (PL)
-  topic-en: "Thesis template",                   // tytuł pracy (EN)
+
+  topic-pl: "Szablon pracy dyplomowej",          // tytuł pracy
+  topic-en: "Thesis template",                   // PL oraz EN
   
-  abstract-pl: read("dodatki/streszczenie.txt"), // streszczenie (PL)
-  abstract-en: read("dodatki/abstract.txt"),     // streszczenie (EN)
+  abstract-pl: read("dodatki/streszczenie.txt"), // streszczenie
+  abstract-en: read("dodatki/abstract.txt"),     // PL oraz EN
   
-  keywords-pl: ("słowo 1", "słowo 2"),           // słowa kluczowe (PL)
-  keywords-en: ("keyword 1", "keyword 2"),       // słowa kluczowe (EN)
+  keywords-pl: ("słowo 1", "słowo 2"),           // słowa kluczowe
+  keywords-en: ("keyword 1", "keyword 2"),       // PL oraz EN
   
-  type: "Projekt inżynierski",                   // rodzaj projektu
+  type: "Projekt inżynierski",                   // rodzaj pracy
   promoter: "Promotor pracy",                    // dane promotora
-  institute: "Nazwa jednostki",                  // nazwa jednostki
-  department: "Nazwa wydziału",                  // nazwa wydziału
-  field: "Kierunek studiów",                     // kierunek studiów
+  institute: "Nazwa jednostki",                  // jednostka
+  department: "Nazwa wydziału",                  // wydział
+  field: "Kierunek studiów",                     // kierunek 
   spec: "Specjalność",                           // specjalność
   year: "2026",                                  // rok złożenia
-  authors: (                                     // lista autorów:
-    (name: "Autor Pierwszy", uuid: 123456),      //  imię i nazwisko
-    (name: "Autor Drugi", uuid: 654123),         //  oraz numer albumu
+  
+  authors: (                                     // autorzy:
+    (name: "Autor Pierwszy", uuid: 123456),      //   pierwszy
+    (name: "Autor Drugi", uuid: 654123),         //   drugi
   ),
+  
 )
 
-#include "rozdzialy/wstep.typ"                   // rozdział pierwszy
-#include "rozdzialy/formatowanie.typ"            // rozdział drugi
-#include "rozdzialy/wykresy.typ"                 // rozdział trzeci
-#include "rozdzialy/kompilacja.typ"              // rozdział czwarty
-#include "rozdzialy/wnioski.typ"                 // rozdział piąty
+// Rozdziały zasadnicze pracy:
+#include "rozdzialy/wstep.typ"
+#include "rozdzialy/formatowanie.typ"
+#include "rozdzialy/wykresy.typ"
+#include "rozdzialy/kompilacja.typ"
+#include "rozdzialy/wnioski.typ"

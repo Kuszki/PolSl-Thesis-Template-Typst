@@ -26,6 +26,7 @@ W pliku `main.typ` należy uzupełnić dane dotyczące pracy, zgodnie z komentar
 * `place` – miejsce złożenia pracy, domyślnie `Gliwice`,
 * `bibfile` – ścieżka pliku z bibliografią, domyślnie `dodatki/bibliografia.bib`,
 * `bibstyle` – styl bibliografii, domyślnie `ieee`,
+* `print` – wersja do druku (przesunięty wewnętrzny margines, ułatwiający bindowanie), domyślnie `false`,
 * `font-sans` – czcionka bezszeryfowa, domyślnie `Latin Modern Sans`,
 * `font-roman` – czcionka szeryfowa, domyślnie `Latin Modern Roman`,
 * `font-mono` – czcionka o stałej szerokości, domyślnie `Latin Modern Mono`,

@@ -15,7 +15,7 @@
   
   bibfile: "dodatki/bibliografia.bib",
   bibstyle: "ieee",
-  print: true,
+  print: false,
 
   font-sans: "Latin Modern Sans",
   font-roman: "Latin Modern Roman",

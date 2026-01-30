@@ -66,7 +66,7 @@ Ostatnim proponowanym rozwiązaniem jest ręczne generowanie wykresów bezpośre
 <fig:cetz>
 
 #figure(
-  caption: [Przykładowy kod Python],
+  caption: [Przykładowy skrypt programu `gnuplot` generujący rysunek~@fig:cetz],
 )[
   ```typst
   #canvas({

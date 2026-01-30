@@ -22,20 +22,23 @@ Rysunki należy sporządzać w formacie wektorowym (np. stosując program `Libre
 Sporządzanie tabel w `Typst` jest znacznie bardziej przystępne, niż w przypadku systemu składu `LaTeX`. Rozwiązanie to odwdzięcza się również jednolitym wyglądem oraz sporą możliwością automatyzacji formatowania danych. Automatyczne formatowanie tabel, które zawierają wartości liczbowe, jest możliwe przy użyciu biblioteki `zero`. Niestety omawiana biblioteka nie wspiera obecnie zmiany ustawień lokalizacji. Ogromną zaletą `Typst` w stosunku do `LaTeX` jest wbudowana możliwość importu danych do tabeli z pliku. Tabele~@tab:tab_1 oraz~@tab:tab_2 stanowią przykłady, gdzie zamieszczono wyniki eksperymentów.
 
 #figure(
-  table(
+  caption: [Przykład tabeli, gdzie kolejne symbole oznaczają rozkład: $(n)$~normalny, $(u)$~jednostajny, $(t)$~trójkątny, $(d)$~dwumodalny (źródło: https://github.com/Kuszki/Phd)]
+)[
+  #table(
     columns: 5,
     $s_(a,b)$ , $n$ , $u$ , $t$ , $d$,
     $n$       , [0,0000]       , [0,1561]       , [0,0250]       , [0,2988]       ,
     $u$       , [0,1561]       , [0,3356]       , [0,1773]       , [0,5337]       ,
     $t$       , [0,0250]       , [0,1773]       , [0,0419]       , [0,3504]       ,
     $d$       , [0,2988]       , [0,5337]       , [0,3504]       , [0,7136]       ,
-  ),
-  caption: [Przykład tabeli, gdzie kolejne symbole oznaczają rozkład: $(n)$~normalny, $(u)$~jednostajny, $(t)$~trójkątny, $(d)$~dwumodalny (źródło: https://github.com/Kuszki/Phd)]
-) 
+  )
+]
 <tab:tab_1>
 
 #figure(
-  table(
+  caption: [Przykład tabeli, gdzie kolejne symbole oznaczają rozkład: $(n)$~normalny, $(u)$~jednostajny, $(t)$~trójkątny, $(d)$~dwumodalny (źródło: https://github.com/Kuszki/Phd)]
+)[
+  #table(
     columns: 10,
     [], $U_(a)$ , $U_(b)$ , $U_(c)$ , $U_(d)$ , $U_(s)$ , $delta_(a)$ , $delta_(b)$ , $delta_(c)$ , $delta_(d)$ ,
     $S_(2,0)$ , [75,01] , [74,00] , [74,10] , [77,32] , [72,87] , [+2,94] , [+1,55] , [+1,69] , [+6,11] ,
@@ -46,9 +49,8 @@ Sporządzanie tabel w `Typst` jest znacznie bardziej przystępne, niż w przypad
     $T_(1,1)$ , [47,31] , [43,60] , [43,37] , [46,08] , [43,74] , [+8,16] , [−0,32] , [−0,85] , [+5,35] ,
     $T_(1,2)$ , [47,31] , [43,60] , [43,37] , [46,08] , [43,76] , [+8,11] , [−0,37] , [−0,89] , [+5,30] ,
     $T_(1,3)$ , [44,79] , [43,64] , [43,39] , [45,43] , [43,17] , [+3,75] , [+1,09] , [+0,51] , [+5,24] ,
-  ),
-  caption: [Przykład tabeli, gdzie kolejne symbole oznaczają rozkład: $(n)$~normalny, $(u)$~jednostajny, $(t)$~trójkątny, $(d)$~dwumodalny (źródło: https://github.com/Kuszki/Phd)]
-) 
+  )
+]
 <tab:tab_2>
 
 Podobnie, jak w przypadku obrazków, tabele numerowane są automatycznie, a odnosić się do nich można stosując ```typst @nazwa_tabeli```. W przypadku potrzeby umieszczania długich tabel (takich, w które mogą przechodzić na kolejne strony) zaleca się podejście opisane w dokumentacji `Typst`. Standardowo nie ma potrzeby rozciągania tabeli, jeśli ta nie zajmuje pełnej szerokości strony. Jeżeli jednak pożądany jest taki efekt, zaleca się stosowanie odpowiedniej opcji podczas tworzenia tabeli.
@@ -73,7 +75,6 @@ f(x, y) = cases(
   4 "w pozostałych przypadkach",
 )
 $ <eq:rownanie_4>
-
 
 Do równań należy odwoływać się stosując ich nazwę, identycznie jak w przypadku tabel i rysunków. Przykładowo odnieść się można do równania~@eq:rownanie_1, równania~@eq:rownanie_3 oraz równania~@eq:rownanie_4. Niestety w obecnej wersji `Typst` nie ma sprawdzonej i działającej metody do automatycznego formatowania cytowanego numeru równania w nawiasach. Stosowanie oficjalnego rozwiązania nie jest kompatybilne z biblioteką `equate`, która pozwala tworzyć, numerować i linkować kolejno występujące po sobie równania. Należy dodatkowo pamiętać, że równania w systemie składu `Typst` nie są kompatybilne z tymi, pisanymi w systemie składu `LaTeX`. Stanowi to poważny problem podczas migracji dokumentu.
 

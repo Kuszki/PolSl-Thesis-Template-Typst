@@ -42,7 +42,7 @@
 
   let authlist = authors.map(a => a.name).join(", ")
   
-  let font-huge = (20/12)*font-size;
+  let font-huge = (20/12)*font-size
   let font-large = (17/12)*font-size
   
   show heading.where(level: 1): set text(size: 25pt, weight: "bold")

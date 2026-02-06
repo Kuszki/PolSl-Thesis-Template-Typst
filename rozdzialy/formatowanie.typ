@@ -40,7 +40,7 @@ Sporządzanie tabel w `Typst` jest znacznie bardziej przystępne, niż w przypad
 )[
   #table(
     columns: 10,
-    [], $U_(a)$ , $U_(b)$ , $U_(c)$ , $U_(d)$ , $U_(s)$ , $delta_(a)$ , $delta_(b)$ , $delta_(c)$ , $delta_(d)$ ,
+    [], $U_(a), #unit("milli volt")$ , $U_(b), #unit("milli volt")$ , $U_(c), #unit("milli volt")$ , $U_(d), #unit("milli volt")$ , $U_(s), #unit("milli volt")$ , $delta_(a), #unit("percent")$ , $delta_(b), #unit("percent")$ , $delta_(c), #unit("percent")$ , $delta_(d), #unit("percent")$ ,
     $S_(2,0)$ , [75,01] , [74,00] , [74,10] , [77,32] , [72,87] , [+2,94] , [+1,55] , [+1,69] , [+6,11] ,
     $S_(2,1)$ , [68,19] , [68,44] , [68,43] , [71,52] , [67,09] , [+1,64] , [+2,01] , [+2,00] , [+6,60] ,
     $T_(2,0)$ , [57,29] , [56,26] , [55,91] , [57,58] , [53,89] , [+6,31] , [+4,40] , [+3,75] , [+6,85] ,
@@ -58,34 +58,32 @@ Podobnie, jak w przypadku obrazków, tabele numerowane są automatycznie, a odno
 == Wstawianie równań
 
 Równania można wstawiać stosując środowisko ```typst $...$```. W ten sposób są one automatycznie numerowane oraz centrowane. Równanie należy traktować tak, jakby były częścią zdania:
-$
-f(x) = a x + b, #<eq:rownanie_1>
-$ 
+$ f(x) = a x + b, $ <eq:rownanie_1>
 po czym to zdanie jest kontynuowane. Równania można również umieszczać jedno pod drugim:
-$
-f_1(x) = 123 x + 321, #<eq:rownanie_2> \
-f_2(x) = 8 x + 7, #<eq:rownanie_3> \
-$
-a dodatkowo stosować można różnego rodzaju funkcje aby uzyskać odpowiedni format równania:
+$ f_1(x) = 123 x + 321, $ <eq:rownanie_2>
+$ f_2(x) = 8 x + 7, $ <eq:rownanie_3>
+a dodatkowo stosować można różnego rodzaju funkcje aby uzyskać odpowiedni format równania, przykładowo:
 $ 
 f(x, y) = cases(
   1 "jeżeli" (x dot y)/2 <= 0,
   2 "jeżeli" x != 2137,
   3 "jeżeli" x in NN,
   4 "w pozostałych przypadkach",
-)
+).
 $ <eq:rownanie_4>
 
-Do równań należy odwoływać się stosując ich nazwę, identycznie jak w przypadku tabel i rysunków. Przykładowo odnieść się można do równania~@eq:rownanie_1, równania~@eq:rownanie_3 oraz równania~@eq:rownanie_4. Niestety w obecnej wersji `Typst` nie ma sprawdzonej i działającej metody do automatycznego formatowania cytowanego numeru równania w nawiasach. Stosowanie oficjalnego rozwiązania nie jest kompatybilne z biblioteką `equate`, która pozwala tworzyć, numerować i linkować kolejno występujące po sobie równania. Należy dodatkowo pamiętać, że równania w systemie składu `Typst` nie są kompatybilne z tymi, pisanymi w systemie składu `LaTeX`. Stanowi to problem podczas migracji dokumentu.
+Do równań należy odwoływać się stosując ich nazwę, identycznie jak w przypadku tabel i rysunków. Przykładowo odnieść się można do równania~@eq:rownanie_1, równania~@eq:rownanie_3 oraz równania~@eq:rownanie_4. Nawiasy w odnośnikach wstawiane są automatycznie.
+
+Istotnym problemem w `Typst` jest fakt, że w obecnej wersji wstawianie równania powoduje przerwanie akapitu. Oznacza to dodatkowe, niepotrzebne odstępy, a także problemy z wcięciem akapitu. Należy dodatkowo pamiętać, że równania w systemie składu `Typst` nie są kompatybilne z tymi, pisanymi w systemie składu `LaTeX`. Stanowi to problem podczas migracji dokumentu. Zaznaczyć w tym miejscu warto również fakt, że narzędzia sztucznej inteligencji bardzo słabo radzą sobie obecnie ze sporządzaniem równań w `Typst` -- są one bowiem przystosowane do stosowania składu `TeX`. Ostatecznie system składu `LaTeX` oferuje znacznie lepsze możliwości formatowania równań.
 
 Jeżeli podczas pisania tekstu istnieje konieczność wstawiania symbolu lub fragmentu równania, to należy taki symbol wstawić pomiędzy znaki dolara, gdzie np. ```typst $x^2 cos(alpha)$``` zamieni się na $x^2 cos(alpha)$. Jeżeli natomiast w tekście występują wielkości wraz z ich wartościami i jednostkami, zaleca się stosowanie biblioteki `unify`. Wtedy przykładowo stosować można rozwiązania gdzie:
- - ```typst $U = qty("12.3", "micro V")$``` zamieni się na $U = qty("12.3", "micro V")$,
- - ```typst $a = qty("10", "m / s^2")$``` zamieni się na $a = qty("10", "m / s^2")$,
- - ```typst #qty("+-0.25", "percent")``` zamieni się na #qty("+-0.25", "percent"),
- - ```typst #qty("1.29 +- 0.16", "ohm")``` zamieni się na #qty("1.29 +- 0.16", "ohm"),
+ - ```typst $U = qty("12,3", "micro volt")$``` zamieni się na $U = qty("12,3", "micro volt")$,
+ - ```typst $a = qty("10", "meter per second squared")$``` zamieni się na $a = qty("10", "meter per second squared")$,
+ - ```typst #qty("+-0,25", "percent")``` zamieni się na #qty("+-0,25", "percent"),
+ - ```typst #qty("1,29 +- 0,16", "ohm")``` zamieni się na #qty("1,29 +- 0,16", "ohm"),
  - ```typst #num(100000)``` zamieni się na #num(100000),
- - ```typst #num(1.124e-7)``` zamieni się na #num(1.124e-7),
-stąd powyższe zapisy mogą być stosowane zarówno bezpośrednio w tekście, jak i w trybie matematycznym. Niestety, podobnie jak w przypadku biblioteki `equate`, biblioteka `unify` nie wspiera w obecnej wersji polskiej lokalizacji.
+ - ```typst #num("1,124e-7")``` zamieni się na #num("1,124e-7").
+Powyższe zapisy mogą być zatem stosowane zarówno bezpośrednio w tekście, jak i w trybie matematycznym. Niestety, podobnie jak w przypadku biblioteki `equate`, biblioteka `unify` nie wspiera w obecnej wersji polskiej lokalizacji ustawianej globalnie.
 
 Podczas pisania równań wszystkie wprowadzane litery traktowane są jako zmienne. Stąd ```typst $x y z$``` zamienia się na $x y z$ (spacje nie są wstawiane). W odróżnieniu od systemu składu `LaTeX`, w systemie `Typst` nie stosuje się specjalnego znaku do wprowadzania symboli specjalnych oraz funkcji. Zmienne automatycznie formatowane są z użyciem kursywy, co jest poprawnym działaniem. Podobnie indeksy górne ```typst $x^n$``` i dolne ```typst $x^n$``` pisane są kursywą (kolejno $x^n$ oraz $x_i$). Jeżeli jednak indeksy te nie są związane z wielkością fizyczną, powinny być pisane czcionką prostą. Wtedy stosuje się np. ```typst $x_("max")$```, co zamienia się na $x_("max")$. W przypadku, gdy analizowana wielkość jest macierzą lub wektorem, jej symbol zapisuje się kursywą wraz z pogrubieniem. Wtedy stosować należy zapis ```typst $bold(X)$```, co zamienia się na $bold(X)$.
 

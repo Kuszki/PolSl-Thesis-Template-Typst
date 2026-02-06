@@ -86,7 +86,9 @@
   show figure.where(kind: table): set figure.caption(position: top)
   show figure.where(kind: image): set figure.caption(position: bottom)
 
+  show math.equation: set block(above: 14pt, below: 14pt)
   show math.equation: set text(font: font-math) 
+  
   show raw: set text(font: font-mono, size: font-size)
   
   show figure.caption: set align(left)
@@ -94,7 +96,6 @@
     #strong[#it.supplement~#it.counter.display(it.numbering)#it.separator]~#emph[#it.body]
   ]
 
-  show: equate.with(breakable: auto, sub-numbering: false)
   show: codly-init.with()
 
   show heading.where(level: 1): it => context {
@@ -104,6 +105,20 @@
     chapter-title.update(n + [~] + it.body)
     chapter-start.update(p)
     it
+  }
+  
+  show ref: it => {
+    let eq = math.equation
+    let el = it.element
+
+    if el == none or el.func() != eq { it }
+    else {
+        link(el.location(), 
+          numbering(el.numbering,
+            ..counter(eq).at(el.location())
+          )
+        )
+    }
   }
 
   set math.equation(numbering: "(1)")

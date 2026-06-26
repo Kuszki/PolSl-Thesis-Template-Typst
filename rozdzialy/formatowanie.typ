@@ -119,7 +119,7 @@ Fragmenty kodu źródłowego mogą być wstawiane w tekście w ten sam sposób, 
 #figure(
   caption: [Przykładowy kod Typst],
 )[
-  #raw(read("../main.typ"), lang: "typst", block: true)
+  #raw(read("../main.typ").split("\n").slice(0, 36).join("\n"), lang: "typst", block: true)
 ]
 <lst:typst>
 

@@ -149,7 +149,6 @@
     spacing: 24pt,
     leading: 1em,
     first-line-indent: 32pt,
-    
   )
 
   set heading(
@@ -176,6 +175,7 @@
   )
 
   codly(
+    number-format: (n) => align(right, text(size: 0.65em, str(n))),
     enabled: true,
     zebra-fill: none, 
     stroke: none,

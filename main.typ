@@ -3,6 +3,8 @@
 // Konfiguracja szablonu:
 #show: thesis.setup.with(
 
+  type: "Projekt inżynierski",                   // rodzaj pracy
+
   topic-pl: "Szablon pracy dyplomowej",          // tytuł pracy
   topic-en: "Thesis template",                   // PL oraz EN
   
@@ -12,7 +14,6 @@
   keywords-pl: ("słowo 1", "słowo 2"),           // słowa kluczowe
   keywords-en: ("keyword 1", "keyword 2"),       // PL oraz EN
   
-  type: "Projekt inżynierski",                   // rodzaj pracy
   promoter: "Promotor pracy",                    // dane promotora
   institute: "Nazwa jednostki",                  // jednostka
   department: "Nazwa wydziału",                  // wydział
@@ -33,3 +34,16 @@
 #include "rozdzialy/wykresy.typ"
 #include "rozdzialy/kompilacja.typ"
 #include "rozdzialy/wnioski.typ"
+
+// Opcjonalne załączniki do pliku PDF:
+#pdf.attach("main.typ",
+  relationship: "source",
+  mime-type: "text/x-typst",
+  description: "Plik źródłowy dokumentu",
+)
+
+#pdf.attach("thesis.typ",
+  relationship: "supplement",
+  mime-type: "text/x-typst",
+  description: "Plik szablonu dokumentu",
+)

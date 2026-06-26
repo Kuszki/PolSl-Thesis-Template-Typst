@@ -46,7 +46,7 @@ Najłatwiejszą metodą budowy dokumentu, poza stosowaniem skryptu `build.sh`, j
 typst watch main.typ
 ```
 
-Skompilowany plik `PDF` powstały na bazie niniejszego szablonu można znaleźć [tutaj](https://github.com/Kuszki/KMEiA-Report-Template-Typst/releases).
+Skompilowany plik `PDF` powstały na bazie niniejszego szablonu można znaleźć [tutaj](https://github.com/Kuszki/PolSl-Thesis-Template-Typst/releases).
 
 ## Licencja
 
